@@ -1,16 +1,16 @@
 # Sales Analytics Dashboard
 
-Um dashboard de analise de vendas para uma loja online ficticia, com dados de clientes, produtos, encomendas e pagamentos.
+A sales analytics dashboard for a fictional online store, with data on customers, products, orders and payments.
 
 ## Stack
 
-- PostgreSQL (ou MySQL)
+- PostgreSQL (or MySQL)
 - Next.js (App Router)
 - TypeScript
-- SQL (queries de agregacao)
-- Charts (ex: Recharts / Chart.js)
+- SQL (aggregation queries)
+- Charts (e.g. Recharts / Chart.js)
 
-## Modelo de dados
+## Data model
 
 - Customers
 - Products
@@ -18,29 +18,29 @@ Um dashboard de analise de vendas para uma loja online ficticia, com dados de cl
 - OrderItems
 - Payments
 
-## Fluxo de dados
+## Data flow
 
 Database -> SQL -> API -> Data processing -> Dashboard
 
-## Funcionalidades do dashboard
+## Dashboard features
 
-- [ ] Revenue (receita total)
-- [ ] Orders (numero de encomendas)
-- [ ] Average order value (valor medio por encomenda)
-- [ ] Best-selling products (produtos mais vendidos)
-- [ ] Sales by month (vendas por mes)
-- [ ] Sales by category (vendas por categoria)
-- [ ] Customer statistics (estatisticas de clientes)
-- [ ] Date filters (filtros por data)
+- [ ] Revenue
+- [ ] Orders
+- [ ] Average order value
+- [ ] Best-selling products
+- [ ] Sales by month
+- [ ] Sales by category
+- [ ] Customer statistics
+- [ ] Date filters
 
-## O que este projeto demonstra
+## What this project demonstrates
 
 SQL + databases + data analysis + dashboards
 
-## Roadmap de desenvolvimento
+## Development roadmap
 
-1. Ideia
-2. Planeamento
+1. Idea
+2. Planning
 3. Database / Architecture
 4. Development
 5. Git / Branches
@@ -50,13 +50,13 @@ SQL + databases + data analysis + dashboards
 9. Screenshots
 10. Demo
 
-## Como correr localmente
+## Running locally
 
 npm install
 cp .env.example .env
 npx prisma migrate dev
 npm run dev
 
-## Autor
+## Author
 
 Tomas Seabra
