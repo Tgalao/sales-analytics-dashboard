@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CARD
+  PAYPAL
+  MBWAY
+  BANK_TRANSFER
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  city      String
+  country   String
+  createdAt DateTime @default(now()) @map("created_at")
+  orders    Order[]
+
+  @@map("customers")
+}
+
+model Product {
+  id         Int         @id @default(autoincrement())
+  name       String
+  category   String
+  price      Decimal     @db.Decimal(10, 2)
+  createdAt  DateTime    @default(now()) @map("created_at")
+  orderItems OrderItem[]
+
+  @@index([category])
+  @@map("products")
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  customerId Int         @map("customer_id")
+  orderDate  DateTime    @map("order_date")
+  status     OrderStatus @default(PENDING)
+  customer   Customer    @relation(fields: [customerId], references: [id])
+  items      OrderItem[]
+  payment    Payment?
+
+  @@index([orderDate])
+  @@index([customerId])
+  @@map("orders")
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int     @map("order_id")
+  productId Int     @map("product_id")
+  quantity  Int
+  unitPrice Decimal @map("unit_price") @db.Decimal(10, 2)
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_items")
+}
+
+model Payment {
+  id      Int           @id @default(autoincrement())
+  orderId Int           @unique @map("order_id")
+  amount  Decimal       @db.Decimal(10, 2)
+  method  PaymentMethod
+  status  PaymentStatus
+  paidAt  DateTime?     @map("paid_at")
+  order   Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
